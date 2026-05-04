@@ -1,5 +1,8 @@
 # gcp-agile-template
 
+[![CI](https://github.com/nobufumi-tego/gcp-agile-template/actions/workflows/ci.yml/badge.svg)](https://github.com/nobufumi-tego/gcp-agile-template/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+
 スマホファースト × GCP × Claude Code Agent によるアジャイル開発テンプレート。
 
 ## What's inside
