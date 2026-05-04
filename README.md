@@ -45,4 +45,4 @@ cd frontend && npm run check              # svelte-check
 
 ## License
 
-このリポジトリは雛形です。フォーク先で適切なライセンスを設定してください。
+[MIT](./LICENSE)

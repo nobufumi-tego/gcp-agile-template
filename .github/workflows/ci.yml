@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# 重複ジョブを自動キャンセル（PR への push 連打対策）
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    name: backend (pytest)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+          cache-dependency-glob: backend/uv.lock
+
+      - name: Install Python 3.12
+        run: uv python install 3.12
+
+      - name: Sync backend dependencies
+        working-directory: backend
+        run: uv sync --frozen
+
+      - name: Run pytest（backend/tests + modules + scripts/tests）
+        # pytest.ini が project root にあり、testpaths と pythonpath を集中管理。
+        # venv の pytest を直接呼ぶと CWD = project root で正しく解決される。
+        run: backend/.venv/bin/pytest --tb=short
+
+  frontend:
+    name: frontend (vitest + svelte-check)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Type check (svelte-check)
+        working-directory: frontend
+        run: npm run check
+
+      - name: Unit tests (vitest)
+        working-directory: frontend
+        run: npm test
