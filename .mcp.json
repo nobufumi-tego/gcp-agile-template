@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "cloud-run": {
+      "type": "http",
+      "url": "https://run.googleapis.com/mcp/v1",
+      "note": "Cloud RunのデプロイをClaude Codeから直接操作"
+    },
+    "bigquery": {
+      "type": "http",
+      "url": "https://bigquery.googleapis.com/mcp/v1",
+      "note": "自然言語でBigQueryを操作"
+    },
+    "firestore": {
+      "type": "http",
+      "url": "https://firestore.googleapis.com/mcp/v1",
+      "note": "Firestoreデータ操作"
+    }
+  }
+}

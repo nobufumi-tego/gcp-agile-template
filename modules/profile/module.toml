@@ -1,0 +1,12 @@
+[module]
+name = "profile"
+version = "0.1.0"
+description = "ユーザープロフィール管理（display_name 更新）"
+
+[backend]
+prefix = "/api/v1/profile"
+deps = []
+
+[frontend]
+deps = []
+routes = []

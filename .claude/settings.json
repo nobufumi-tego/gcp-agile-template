@@ -1,0 +1,44 @@
+{
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(gcloud:*)",
+      "Bash(firebase:*)",
+      "Bash(uv:*)",
+      "Bash(uvx:*)",
+      "Bash(pytest:*)",
+      "Bash(npm:*)",
+      "Bash(npx:*)",
+      "Bash(git:*)"
+    ],
+    "deny": [
+      "Bash(rm -rf /*)",
+      "Bash(gcloud secrets:*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -c \"import os, datetime, pathlib; p = os.environ.get('CLAUDE_FILE_PATH', '?'); pathlib.Path('.claude/session.log').parent.mkdir(parents=True, exist_ok=True); open('.claude/session.log', 'a', encoding='utf-8').write(f\\\"[{datetime.datetime.now().strftime('%H:%M')}] {os.path.basename(p)}\\n\\\")\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python -c \"import datetime, pathlib; pathlib.Path('.claude/session.log').parent.mkdir(parents=True, exist_ok=True); open('.claude/session.log', 'a', encoding='utf-8').write(f\\\"=== Session {datetime.datetime.now().isoformat(timespec='seconds')} ===\\n\\\")\""
+          }
+        ]
+      }
+    ]
+  }
+}

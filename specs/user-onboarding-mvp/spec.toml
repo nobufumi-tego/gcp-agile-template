@@ -1,0 +1,8 @@
+[spec]
+name = "user-onboarding-mvp"
+version = "0.1.0"
+description = "Google ログイン + 表示名編集の MVP 仕様"
+author = "PO チーム"
+
+[target]
+sprint = 1

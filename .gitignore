@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+*.egg-info/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+*.swp
+*.swo
+
+# Claude Code session artefacts
+.claude/session.log
+
+# Build outputs（フロント側にも個別の .gitignore あり）
+build/
+dist/
+
+# Node（念のためトップレベルでも除外）
+node_modules/
